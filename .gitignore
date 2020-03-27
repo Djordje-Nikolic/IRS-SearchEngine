@@ -127,3 +127,12 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# HTML collection files
+*.html
+
+# Output
+output/
+metadata/
+structures/
+Query Results/

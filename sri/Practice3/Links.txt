@@ -1,0 +1,2 @@
+https://www.nltk.org/_modules/nltk/stem/snowball.html
+http://snowball.tartarus.org/algorithms/spanish/stemmer.html
