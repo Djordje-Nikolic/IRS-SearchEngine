@@ -94,24 +94,35 @@ class SearchEngine:
         else:
             self.structures.dump(folderpath)
       
-#change this
-args = sys.argv
-configfilepath = args[1]
-queryfilepath = args[2]
-maxdocuments = int(args[3])
-
-try:
-    searchengine = SearchEngine(configfilepath, genmiddleoutput=True, displayprocesstime=True)
+        
+if __name__ == '__main__':
+    # Execute as script
     
-    queryfolder = os.path.dirname(queryfilepath)
-    queryresfolder = "Query Results"
-    queryrespath = os.path.join(queryfolder, queryresfolder)
-    if not os.path.exists(queryrespath):
-        os.makedirs(queryrespath)
+    if (len(sys.argv != 4)):
+        print("If executed as a script, this module needs 3 input arguments.")
+        print("\t - full path to the config file")
+        print("\t - full path to the file containing queries to be searched")
+        print("\t - number of documents to be returned as result")
+        sys.exit()
     
-    searchengine.searchFromFile(queryfilepath, documentstoreturn=maxdocuments, outputfolderpath=queryrespath)
-    searchengine.save()
-except Exception as err:
-    print("Search engine exception: ", err)
+    #change this
+    args = sys.argv
+    configfilepath = args[1]
+    queryfilepath = args[2]
+    maxdocuments = int(args[3])
+    
+    try:
+        searchengine = SearchEngine(configfilepath, genmiddleoutput=True, displayprocesstime=True)
+        
+        queryfolder = os.path.dirname(queryfilepath)
+        queryresfolder = "Query Results"
+        queryrespath = os.path.join(queryfolder, queryresfolder)
+        if not os.path.exists(queryrespath):
+            os.makedirs(queryrespath)
+        
+        searchengine.searchFromFile(queryfilepath, documentstoreturn=maxdocuments, outputfolderpath=queryrespath)
+        searchengine.save()
+    except Exception as err:
+        print("Search engine exception: ", err)
 
 
