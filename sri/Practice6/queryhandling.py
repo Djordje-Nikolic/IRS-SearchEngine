@@ -6,9 +6,7 @@ Created on Mon Mar 23 20:00:37 2020
 """
 import math
 from typing import Callable, Any
-import sri.Practice1.normalizer_tokenizer as normtok
-import sri.Practice2.stopper as stop
-import sri.Practice3.stemmer as stem
+from sri import preprocessing as prepro
 import sri.Practice4.references as refs
 import sri.Practice5.indexing as indexing
 
@@ -70,11 +68,9 @@ class Query:
         return '\n'.join(pairs)
 
 class QueryFactory:
-    def __init__(self, normalizer = normtok.Normalizer(), tokenizer = normtok.Tokenizer(), stopper = stop.Stopper(), stemmer = stem.SpanishModStemmer()):
-        self.normalizer = normalizer
-        self.tokenizer = tokenizer
-        self.stopper = stopper
-        self.stemmer = stemmer
+    def __init__(self, s1prepro = prepro.Stage1Processor(), s2prepro = prepro.Stage2Processor("spanish")):
+        self.s1prepro = s1prepro
+        self.s2prepro = s2prepro
         
     def setIndexObjects(self, index: indexing.IndexingData, wordref: refs.WordRef):
         self.index = index
@@ -96,10 +92,8 @@ class QueryFactory:
         return queryres
     
     def processQuery(self, querystr: str) -> Query:
-        normalized = self.normalizer.normalize(querystr)
-        tokens = self.tokenizer.tokenize(normalized)
-        tokenswithnostops = self.stopper.removestops(tokens)
-        stems = list(map(self.stemmer.stem, tokenswithnostops))
+        tokens = self.s1prepro.processContent(querystr)
+        stems = self.s2prepro.processWords(tokens)
         
         wordids = self.wordref.getWordIDs(stems)
         

@@ -9,7 +9,20 @@ import sys
 import metadata
 import os
 
-#sys.path.insert(0, os.path.dirname(__file__))
+syspaths = []
+syspaths.append(os.path.abspath(".."))
+syspaths.append(os.path.abspath(os.path.dirname(__file__)))
+syspaths.append(os.path.abspath(".\Practice1"))
+syspaths.append(os.path.abspath(".\Practice2"))
+syspaths.append(os.path.abspath(".\Practice3"))
+syspaths.append(os.path.abspath(".\Practice4"))
+syspaths.append(os.path.abspath(".\Practice5"))
+syspaths.append(os.path.abspath(".\Practice6"))
+syspaths.append(os.path.abspath(".\Practice7"))
+
+for path in syspaths:
+    if (path not in sys.path):
+        sys.path.append(path)
 
 import helpers
 from os.path import dirname

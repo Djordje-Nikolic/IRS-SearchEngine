@@ -7,14 +7,13 @@ Created on Sun Mar 22 03:20:10 2020
 from sri.Practice1.normalizer_tokenizer import Normalizer
 import os
 
-stopperpath = os.path.join(os.path.dirname(__file__), "stopwords.txt")
-
 class Stopper:
     def __init__(self, metadataBefore = None, metadataAfter = None):
+        self.stopperpath = os.path.join(os.path.dirname(__file__), "stopwords.txt")
         self.metadataBefore = metadataBefore
         self.metadataAfter = metadataAfter
         self.stopwords = {}
-        self.load(stopperpath)
+        self.load(self.stopperpath)
         
     def load(self, filepath: str):
         normalizer = Normalizer()

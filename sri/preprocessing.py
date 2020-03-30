@@ -16,14 +16,17 @@ class Stage1Processor:
         self.normalizer = normalizer
         self.tokenizer = tokenizer
         
+    def processContent(self, text: str):
+        normalized = self.normalizer.normalize(text)
+        return self.tokenizer.tokenize(normalized)
+        
     def processFile(self, filepath: str):
         if os.path.isfile(filepath):
             self.filter.setFilepath(filepath)
             self.filter.filterContent()
             content = self.filter.getContent()
         
-            normalized = self.normalizer.normalize(content)
-            return self.tokenizer.tokenize(normalized)
+            return self.processContent(content)
         else:
             raise Exception
             

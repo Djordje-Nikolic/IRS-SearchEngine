@@ -8,6 +8,21 @@ import os
 from os.path import dirname
 from os.path import join
 
+syspaths = []
+syspaths.append(os.path.abspath(".."))
+syspaths.append(os.path.abspath(os.path.dirname(__file__)))
+syspaths.append(os.path.abspath(".\Practice1"))
+syspaths.append(os.path.abspath(".\Practice2"))
+syspaths.append(os.path.abspath(".\Practice3"))
+syspaths.append(os.path.abspath(".\Practice4"))
+syspaths.append(os.path.abspath(".\Practice5"))
+syspaths.append(os.path.abspath(".\Practice6"))
+syspaths.append(os.path.abspath(".\Practice7"))
+
+for path in syspaths:
+    if (path not in sys.path):
+        sys.path.append(path)
+
 from timeit import default_timer as timer
 import Practice5.structures_serialization as structserial
 import Practice6.queryhandling as queryhandling

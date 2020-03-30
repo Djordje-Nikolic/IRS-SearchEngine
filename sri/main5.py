@@ -7,6 +7,21 @@ Created on Sun Mar 22 01:06:44 2020
 import metadata
 import os
 
+syspaths = []
+syspaths.append(os.path.abspath(".."))
+syspaths.append(os.path.abspath(os.path.dirname(__file__)))
+syspaths.append(os.path.abspath(".\Practice1"))
+syspaths.append(os.path.abspath(".\Practice2"))
+syspaths.append(os.path.abspath(".\Practice3"))
+syspaths.append(os.path.abspath(".\Practice4"))
+syspaths.append(os.path.abspath(".\Practice5"))
+syspaths.append(os.path.abspath(".\Practice6"))
+syspaths.append(os.path.abspath(".\Practice7"))
+
+for path in syspaths:
+    if (path not in sys.path):
+        sys.path.append(path)
+
 from os.path import dirname
 from os.path import join
 from timeit import default_timer as timer

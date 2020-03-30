@@ -6,6 +6,7 @@ Created on Sun Mar 22 00:07:29 2020
 """
 import helpers 
 import re
+from nltk.tokenize import TreebankWordTokenizer
 
 class Normalizer:
     def __init__(self):
@@ -43,10 +44,10 @@ class Normalizer:
 class Tokenizer:
     def __init__(self):
         #UBACI OSTALE DOZVOLJENE KARAKTERE?
-        self.tokenizepattern = "[^\s\W\_\-]+(?:'[^\s\W\_\-])?"
+        self.tokenizer = TreebankWordTokenizer()
         
     def tokenize(self, text: str) -> [str]:
-        return re.findall(self.tokenizepattern, text)
+        return self.tokenizer.tokenize(text)
     
     def tokenizetofile(self, text: str, filepath: str):
         helpers.dumparraytofile(self.tokenize(text), filepath)

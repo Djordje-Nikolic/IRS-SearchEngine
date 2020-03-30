@@ -95,17 +95,13 @@ class SearchEngine:
             self.structures.dump(folderpath)
       
 #change this
-#args = sys.argv
-#configfilepath = args[1]
-#queryfilepath = args[2]
-#maxdocuments = int(args[3])
-            
-configfilepath = "C:\\Users\\djord\\source\\repos\\PyCharm Projects\\SRIProject\\sri\\config.txt"
-queryfilepath = "C:\\Users\\djord\\source\\repos\\PyCharm Projects\\SRIProject\\sri\\queries.txt"
-maxdocuments = 10
+args = sys.argv
+configfilepath = args[1]
+queryfilepath = args[2]
+maxdocuments = int(args[3])
 
 try:
-    searchengine = SearchEngine(configfilepath, genmiddleoutput=False, displayprocesstime=True)
+    searchengine = SearchEngine(configfilepath, genmiddleoutput=True, displayprocesstime=True)
     
     queryfolder = os.path.dirname(queryfilepath)
     queryresfolder = "Query Results"

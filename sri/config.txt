@@ -1,2 +1,2 @@
-collection=C:\Users\djord\source\repos\PyCharm Projects\SRIProject\sri\coleccionESuja2019\coleccionESuja2019
-structures=C:\Users\djord\source\repos\PyCharm Projects\SRIProject\sri\structures
+collection=C:\Users\djord\source\repos\IRS-SearchEngine\sri\coleccionESuja2019\coleccionESuja2019
+structures=C:\Users\djord\source\repos\IRS-SearchEngine\sri\structures
