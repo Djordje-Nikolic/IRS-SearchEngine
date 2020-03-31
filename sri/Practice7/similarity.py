@@ -45,6 +45,9 @@ class Similarities:
         
     def setTimeTaken(self, timetaken):
         self.timetaken = timetaken
+        
+    def sort(self):
+        self.list = sorted(self.list, reverse=True, key=lambda sim: sim.value)
     
     def dumpInfo(self, filepath: str = None, topcount = None):
         display(self, orgquery = True, outfilepath = filepath, maximumdocs = topcount)
@@ -54,9 +57,11 @@ def display(sims: Similarities, fullpath = False, outfilepath = None, maximumdoc
     if (orgquery):
         lines.append("\"{0}\"".format(sims.originalquery))
         
-    simlist = sims.list
+
     if (sort):
-        simlist = sorted(simlist, reverse=True, key=lambda sim: sim.value)
+        sims.sort()
+        
+    simlist = sims.list
         
     if (maximumdocs is None):
         maximumdocs = len(simlist)

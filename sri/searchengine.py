@@ -63,9 +63,12 @@ class SearchEngine:
         self.queryfactory.setIndexObjects(self.structures.index, self.structures.wordref)
         self.similaritygenerator = similarity.SimilarityGenerator(self.structures.index)
         
-    def search(self, query: str, documentstoreturn = None, outputpath = None, fullfilepath = False):
+    def search(self, query: str, documentstoreturn = None, outputpath = None, fullfilepath = False, returnobjects = False):
         queryobj = self.queryfactory.processQuery(query)
         similarities = self.similaritygenerator.getSimilarities(queryobj)
+        
+        if returnobjects:
+            return similarities
         
         similarity.display(similarities, fullpath=fullfilepath, outfilepath=outputpath, maximumdocs=documentstoreturn)
         
