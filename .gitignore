@@ -135,5 +135,5 @@ dmypy.json
 output/
 metadata/
 structures/
-Query Results/
+Query Results*/
 middle_output/

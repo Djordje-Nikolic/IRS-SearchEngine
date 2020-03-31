@@ -49,8 +49,8 @@ class WordInfo:
         return self.filedict.get(fileid)
     
     def setIDF(self, totalfilecount):
-        res1 = totalfilecount / len(self.filedict)
-        self.IDF = math.log2(res1)
+        res1 = totalfilecount / len(self.filedict) + 1
+        self.IDF = math.log2(res1) + 1
     
     def calcWs(self):
         for _, wfdata in self.filedict.items():
@@ -90,8 +90,8 @@ class IndexingData:
             return hit.IDF
         else:
             filecount = self.fileref.getfilecount()
-            res1 = (filecount + 1) / 1
-            return math.log2(res1)
+            res1 = filecount / 1
+            return math.log2(res1) + 1
     
     def __repr__(self):
         filedata = []

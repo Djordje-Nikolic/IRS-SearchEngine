@@ -101,7 +101,7 @@ class SearchEngine:
 if __name__ == '__main__':
     # Execute as script
     
-    if (len(sys.argv != 4)):
+    if (len(sys.argv) != 4):
         print("If executed as a script, this module needs 3 input arguments.")
         print("\t - full path to the config file")
         print("\t - full path to the file containing queries to be searched")
@@ -118,7 +118,7 @@ if __name__ == '__main__':
         searchengine = SearchEngine(configfilepath, genmiddleoutput=True, displayprocesstime=True)
         
         queryfolder = os.path.dirname(queryfilepath)
-        queryresfolder = "Query Results"
+        queryresfolder = "Query Results smooth"
         queryrespath = os.path.join(queryfolder, queryresfolder)
         if not os.path.exists(queryrespath):
             os.makedirs(queryrespath)
