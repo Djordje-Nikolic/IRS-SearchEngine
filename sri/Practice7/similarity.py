@@ -30,6 +30,13 @@ class Similarity:
                 return self.filepath
             else:
                 return self.getfilename()
+                
+    def serialize(self):
+        return {
+            'fileid' : self.fileid,
+            'value' : self.value,
+            'file' : self.getfilename()
+        }
         
 class Similarities:
     def __init__(self, originalquery: str):
@@ -51,6 +58,13 @@ class Similarities:
     
     def dumpInfo(self, filepath: str = None, topcount = None):
         display(self, orgquery = True, outfilepath = filepath, maximumdocs = topcount)
+        
+    def serialize(self):
+        return {
+            'timetaken' : self.timetaken,
+            'originalquery' : self.originalquery,
+            'similarities' : [s.serialize() for s in self.list]
+        }
     
 def display(sims: Similarities, fullpath = False, outfilepath = None, maximumdocs = None, sort = True, orgquery = True):
     lines = []
