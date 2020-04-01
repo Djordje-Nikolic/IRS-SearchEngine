@@ -4,6 +4,6 @@ from wtforms.validators import DataRequired
 
 class QueryForm(FlaskForm):
     query = StringField('Query', validators=[DataRequired()])
-    maxdocs = IntegerField('Number of documents to return')
+    maxdocs = IntegerField('Number of documents to return', default=0)
     fullpath = BooleanField('Display document path?')
     submit = SubmitField('Search')

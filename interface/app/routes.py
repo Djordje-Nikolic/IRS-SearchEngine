@@ -10,8 +10,7 @@ if os.path.abspath("..") not in sys.path:
 
 from sri import searchengine
 
-engineconfigpath = "C:\\Users\\djord\\source\\repos\\IRS-SearchEngine\\sri\\config.txt"
-engine = searchengine.SearchEngine(engineconfigpath)
+engine = searchengine.SearchEngine(app.config['ENGINE_CONFIG'])
 
 @app.route('/', methods=['GET','POST'])
 @app.route('/home', methods=['GET','POST'])
@@ -23,10 +22,11 @@ def home():
         similarities = engine.search(form.query.data, returnobjects=True)
         similarities.sort()
 
-        if form.maxdocs.data is not None:
+        if form.maxdocs.data != 0:
             dispcount = min(form.maxdocs.data, len(similarities.list))
         else:
             dispcount = len(similarities.list)
+        
 
-        return render_template("main.html", title="SRI Search Engine", hellomsg="Welcome, enter your query:", form=form, results=similarities, resultcount=dispcount)
-    return render_template("main.html", title="SRI Search Engine", hellomsg="Welcome, enter your query:", form=form)
+        return render_template("main.html", title="SRI Search Engine", hellomsg="Welcome, enter your query", form=form, results=similarities, resultcount=dispcount)
+    return render_template("main.html", title="SRI Search Engine", hellomsg="Welcome, enter your query", form=form)
