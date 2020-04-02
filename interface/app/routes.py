@@ -14,8 +14,12 @@ engine = searchengine.SearchEngine(app.config['ENGINE_CONFIG'])
 
 @app.route('/', methods=['GET','POST'])
 @app.route('/home', methods=['GET','POST'])
-@app.route('/test', methods=['GET','POST'])
 def home():
+    form = QueryForm()
+    return render_template("main.html", title="SRI Search Engine", hellomsg="Welcome, enter your query", form=form)
+
+@app.route('/search', methods=['GET','POST'])
+def search():
     form = QueryForm()
     if form.validate_on_submit():
         # form validate
@@ -29,4 +33,8 @@ def home():
             dispcount = len(similarities.list)
         
         return jsonify(data=similarities.serialize(), dispcount=dispcount)
-    return render_template("main.html", title="SRI Search Engine", hellomsg="Welcome, enter your query", form=form)
+    else:
+        errorList = []
+        for field, errors in form.errors.items():
+            errorList.append("Field: {0} Errors: {1}".format(form[field].label, ', '.join(errors)))
+        return jsonify(data=None, errors=errorList)

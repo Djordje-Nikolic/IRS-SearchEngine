@@ -4,6 +4,11 @@ function displayloading(url) {
     $('#results_display').html(img);
 }
 
+function clearloading() {
+    placetodisp = document.getElementById('results_display');
+    placetodisp.removeChild(placetodisp.childNodes[0]);
+}
+
 function displayresults(results, count) {
     var table = document.createElement("table");
     table.className = "table table-stripped table-hover";
@@ -58,8 +63,45 @@ function displayresults(results, count) {
     timep.innerHTML = `Time taken: ${parseFloat(results.timetaken).toFixed(5)}s`;
 
     placetodisp = document.getElementById('results_display');
-    placetodisp.removeChild(placetodisp.childNodes[0]);
+    clearloading();
     placetodisp.appendChild(table);
     placetodisp.appendChild(timediv);
 }
 
+function displayerror(status, errorThrown) {
+
+    var errdisp = document.getElementById('err_display');
+    if (status)
+    {
+       var errdiv = document.createElement('div');
+       errdiv.className = "alert alert-info";
+       errdiv.role = "alert";
+       errdiv.innerHTML = status;
+       errdisp.appendChild(errdisp);
+    }
+    if (errorThrown)
+    {
+        var errdiv = document.createElement('div');
+        errdiv.className = "alert alert-info";
+        errdiv.role = "alert";
+        errdiv.innerHTML = errorThrown;
+        errdisp.appendChild(errdisp);
+    }
+}
+
+function displayerrors(errorList) {
+    var frag = document.createDocumentFragment();
+    errorList.forEach(function(error){       
+        var errdiv = document.createElement('div');
+        errdiv.className = "alert alert-info";
+        errdiv.role = "alert";
+        errdiv.innerHTML = error.toString();
+        frag.appendChild(errdiv); 
+      });
+    document.getElementById('err_display').appendChild(frag);
+}
+
+function clearerrors() {
+
+    $('#err_display').empty();
+}
