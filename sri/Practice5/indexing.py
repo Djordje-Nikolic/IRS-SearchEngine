@@ -7,6 +7,7 @@ Created on Sun Mar 22 22:47:33 2020
 
 import sri.Practice4.references as refs  
 import math
+from sri.helpers import insertinsorted
 
 class WFData:
     def __init__(self):
@@ -49,7 +50,7 @@ class WordInfo:
         return self.filedict.get(fileid)
     
     def setIDF(self, totalfilecount):
-        res1 = totalfilecount / len(self.filedict) + 1
+        res1 = (totalfilecount + 1) / (len(self.filedict) + 1)
         self.IDF = math.log2(res1) + 1
     
     def calcWs(self):
@@ -90,7 +91,7 @@ class IndexingData:
             return hit.IDF
         else:
             filecount = self.fileref.getfilecount()
-            res1 = filecount / 1
+            res1 = (filecount + 1) / 1
             return math.log2(res1) + 1
     
     def __repr__(self):
@@ -175,6 +176,21 @@ class IndexingData:
         for _, worddata in self.maindict.items():
             for fileid, wfdata in worddata.filedict.items():
                 wfdata.calculateWn(norms[fileid])
-    
-    
+                
+    def getMostCommonWords(self, count: int = 5):
+        result = {}
+        
+        for wordid, worddata in self.maindict.items():
+            for fileid, wfdata in worddata.filedict.items():
+                hit = result.get(fileid)
+                if hit is None:
+                    hit = []
+                
+                commonTuple = (wordid, wfdata.freq)
+                insertinsorted(hit, commonTuple, lambda x: x[1], desc=True)
+                
+                hit = hit[0:count]
+                result[fileid] = hit
+                
+        return result
         

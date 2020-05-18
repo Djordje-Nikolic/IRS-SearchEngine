@@ -24,6 +24,7 @@ class Query:
         self.words = {}
         self.maxfreq = -1
         self.norm = None
+        self.prfextended = False
         
     def addword(self, word: str, wordid):
         hit= self.words.get(word)
@@ -33,6 +34,23 @@ class Query:
         hit.increment()
         if (hit.freq > self.maxfreq):
             self.maxfreq = hit.freq
+            
+    def addprfword(self, wordid):
+        self.prfextended = True
+        
+        founddata = None
+        for _, qwfdata in self.words.items():
+            if qwfdata.wordid == wordid:
+                founddata = qwfdata
+                break
+        
+        if founddata is None:
+            founddata = QueryWFData(wordid)
+            hsh = hash(wordid)
+            self.words[hsh] = founddata
+        founddata.increment()
+        if (founddata.freq > self.maxfreq):
+            self.maxfreq = founddata.freq
         
     def calcTFs(self):
         for _, qwfdata in self.words.items():
@@ -57,6 +75,12 @@ class Query:
             
         self.norm = math.sqrt(sumOfSqrWs)      
         return self.norm
+    
+    def isValid(self):
+        if len(self.words) > 0:
+            return True
+        else:
+            return False
     
     def __repr__(self):
         pairs = []
@@ -105,4 +129,13 @@ class QueryFactory:
         query.calcWs(self.index.getwordidf)
         query.calcWns()
             
+        return query
+    
+    def addPRFWords(self, query: Query, wordids: [int]) -> Query:
+        for wordid in wordids:
+            query.addprfword(wordid)
+        
+        query.calcTFs()
+        query.calcWs(self.index.getwordidf)
+        query.calcWns()
         return query

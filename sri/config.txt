@@ -1,2 +1,2 @@
 collection=C:\Users\djord\source\repos\IRS-SearchEngine\sri\coleccionESuja2019\coleccionESuja2019
-structures=C:\Users\djord\source\repos\IRS-SearchEngine\sri\structures
+structures=.\engine-structures
